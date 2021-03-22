@@ -1,0 +1,19 @@
+.campaign-list {
+  padding-top: 2em;
+
+  &__header {
+    text-align: center;
+    font-size: 3em;
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    &__item {
+      flex-basis: 20em;
+
+    }
+  }
+}
