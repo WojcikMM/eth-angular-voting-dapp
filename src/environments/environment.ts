@@ -5,8 +5,9 @@
 export const environment = {
   production: false,
   campaignFactory: {
-    address: '',
+    address: '0x1b7582D29D1d859Ef45bD62EAdE7Ff96C0722e64',
     options: {
+      gasPrice: '0'
     }
   }
 };

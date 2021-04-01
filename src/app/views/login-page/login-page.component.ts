@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {Web3AccountService} from '../../web3/web3.account.service';
 import {filter} from 'rxjs/operators';
 import {Router} from '@angular/router';
@@ -8,7 +8,7 @@ import {Router} from '@angular/router';
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.scss']
 })
-export class LoginPageComponent implements OnInit {
+export class LoginPageComponent {
 
   constructor(private readonly _accountService: Web3AccountService,
               private readonly _router: Router) {
@@ -16,14 +16,9 @@ export class LoginPageComponent implements OnInit {
       .pipe(
         filter(account => !!account)
       )
-      .subscribe(loggedInAccount => {
-        console.log('xx', loggedInAccount);
+      .subscribe(() => {
         this._router.navigate(['/']);
       });
-  }
-
-  ngOnInit(): void {
-
   }
 
   onConnectClicked(): void {

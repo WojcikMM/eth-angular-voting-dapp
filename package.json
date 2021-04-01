@@ -8,7 +8,12 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "postinstall": "node patch.js"
+    "postinstall": "node patch.js",
+    "truffle": "truffle",
+    "truffle:compile": "truffle compile",
+    "posttruffle:compile": "node copy-abi-files.js",
+    "truffle:migrate": "truffle migrate",
+    "truffle:test": "truffle test"
   },
   "private": true,
   "dependencies": {
