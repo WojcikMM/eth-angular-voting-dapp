@@ -1,7 +1,7 @@
-import {Component} from '@angular/core';
-import {Web3AccountService} from '../../web3/web3.account.service';
-import {filter} from 'rxjs/operators';
-import {Router} from '@angular/router';
+import { Component } from '@angular/core';
+import { filter } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { Web3AccountServiceProvider } from 'src/app/services/web3.account.service';
 
 @Component({
   selector: 'app-login-page',
@@ -10,7 +10,7 @@ import {Router} from '@angular/router';
 })
 export class LoginPageComponent {
 
-  constructor(private readonly _accountService: Web3AccountService,
+  constructor(private readonly _accountService: Web3AccountServiceProvider,
               private readonly _router: Router) {
     this._accountService.connectedAccount$
       .pipe(

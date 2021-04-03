@@ -1,10 +1,6 @@
-import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable} from 'rxjs';
-import {web3, windowEthereum} from './web3';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { web3 } from './web3';
 
-@Injectable({
-  providedIn: 'root'
-})
 export class Web3AccountService {
 
   readonly connectedAccount$: Observable<string>;
@@ -20,7 +16,7 @@ export class Web3AccountService {
         this._accountChangedHandler(accounts);
       });
 
-    windowEthereum.on('accountsChanged', (accounts: string[]) => {
+    ((window as any).ethereum as any).on('accountsChanged', (accounts: string[]) => {
       this._accountChangedHandler(accounts);
     });
   }

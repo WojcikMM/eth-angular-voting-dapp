@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { CampaignFactoryContractBuilder } from '../../../web3';
-import { environment } from '../../../../environments/environment';
+import { BaseContractService } from 'web3-rx';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { BaseMethodCaller } from '../../../web3/methods/base-method.caller';
+import { environment } from '../../../../environments/environment';
+import { CampaignFactoryContractBuilder } from '../../../web3';
 
 interface GetCampaignDto {
   _addressesArray: string[];
@@ -17,7 +17,7 @@ interface GetCampaignDto {
 @Injectable({
   providedIn: 'root'
 })
-export class CampaignListService extends BaseMethodCaller {
+export class CampaignListService extends BaseContractService {
 
   constructor() {
     const contract = new CampaignFactoryContractBuilder()

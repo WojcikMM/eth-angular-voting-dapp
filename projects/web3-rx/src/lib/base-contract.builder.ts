@@ -1,5 +1,5 @@
 import {Contract, ContractOptions} from 'web3-eth-contract';
-import {web3} from '../web3';
+import { web3 } from './web3';
 
 /**
  * This is base builder class for create Ethereum Smart Contract adapter builder.

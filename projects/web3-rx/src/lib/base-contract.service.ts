@@ -2,7 +2,12 @@ import { fromPromise } from 'rxjs/internal-compatibility';
 import { Contract, SendOptions, EventData } from 'web3-eth-contract';
 import { Observable } from 'rxjs';
 
-export class BaseMethodCaller {
+// TODO: start using "from" instead of "fromPromise"
+/**
+ * TODO: ADD DOCS HERE
+ */
+export class BaseContractService {
+
   constructor(private readonly contract: Contract) {
   }
 
@@ -27,7 +32,7 @@ export class BaseMethodCaller {
    *
    * }
    */
-  protected __getData$<T>(methodName: string, ...params: any[]): Observable<T> {
+  protected __getData$<T>(methodName: string, ...params: unknown[]): Observable<T> {
     if (!this.contract.methods[methodName]) {
       throw new Error('There is no method with given name at given ABI file');
     }
@@ -60,7 +65,7 @@ export class BaseMethodCaller {
    *
    * }
    */
-  protected __sendData$(methodName: string, sendOptions: SendOptions, ...params: any[]): Observable<void> {
+  protected __sendData$(methodName: string, sendOptions: SendOptions, ...params: unknown[]): Observable<void> {
     if (!this.contract.methods[methodName]) {
       throw new Error('There is no method with given name at given ABI file');
     }
@@ -70,10 +75,10 @@ export class BaseMethodCaller {
   /**
    * Use this method to subscribe to Smart Contract Events
    * @param eventName - name of your event
+   * @description This method returns base event values to get typed one please use <i>__getEvents$</i> method
    * @protected
-   * @deprecated Please use
    */
-  protected __getBaseEvents$<T>(eventName: string): Observable<{ [p: string]: any }> {
+  protected __getBaseEvents$<T>(eventName: string): Observable<{ [p: string]: unknown }> {
     return this.__getEvents$(eventName, x => x);
   }
 
@@ -83,7 +88,7 @@ export class BaseMethodCaller {
    * @param mapFunc - function to map event to given type
    * @protected
    */
-  protected __getEvents$<T>(eventName: string, mapFunc: (eventValues: { [p: string]: any }) => T): Observable<T> {
+  protected __getEvents$<T>(eventName: string, mapFunc: (eventValues: { [p: string]: unknown }) => T): Observable<T> {
     if (!this.contract.events[eventName]) {
       throw new Error('There is no event with given name at given ABI file');
     }

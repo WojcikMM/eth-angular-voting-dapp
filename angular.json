@@ -135,6 +135,47 @@
           }
         }
       }
+    },
+    "web3-rx": {
+      "projectType": "library",
+      "root": "projects/web3-rx",
+      "sourceRoot": "projects/web3-rx/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/web3-rx/tsconfig.lib.json",
+            "project": "projects/web3-rx/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/web3-rx/tsconfig.lib.prod.json",
+              "project": "projects/web3-rx/ng-package.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/web3-rx/src/test.ts",
+            "tsConfig": "projects/web3-rx/tsconfig.spec.json",
+            "karmaConfig": "projects/web3-rx/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/web3-rx/tsconfig.lib.json",
+              "projects/web3-rx/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "eth-angular-app"
