@@ -37,32 +37,32 @@
     "outputs": [
       {
         "internalType": "address[]",
-        "name": "",
+        "name": "_addressesArray",
         "type": "address[]"
       },
       {
         "internalType": "uint256[]",
-        "name": "",
+        "name": "_voteCountsArray",
         "type": "uint256[]"
       },
       {
         "internalType": "bool[]",
-        "name": "",
+        "name": "_hasCandidatesArray",
         "type": "bool[]"
       },
       {
         "internalType": "bool[]",
-        "name": "",
+        "name": "_canVoteArray",
         "type": "bool[]"
       },
       {
         "internalType": "bool[]",
-        "name": "",
+        "name": "_isActiveArray",
         "type": "bool[]"
       },
       {
         "internalType": "bool[]",
-        "name": "",
+        "name": "_isUserOwnerArray",
         "type": "bool[]"
       }
     ],

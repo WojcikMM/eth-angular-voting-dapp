@@ -1,74 +1,59 @@
 import { Injectable } from '@angular/core';
 import { CampaignFactoryContractBuilder } from '../../../web3';
 import { environment } from '../../../../environments/environment';
-import { Contract } from 'web3-eth-contract';
-import { fromPromise } from 'rxjs/internal-compatibility';
-import { Observable, zip } from 'rxjs';
-import { map, mergeMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { BaseMethodCaller } from '../../../web3/methods/base-method.caller';
 
-
-interface GetCampaignsDto {
-  addressesArray: string[];
-  voteCountsArray: bigint[];
-  hasCandidatesArray: boolean[];
-  canVoteArray: boolean[];
-  isActiveArray: boolean[];
-  isUserOwnerArray: boolean[];
+interface GetCampaignDto {
+  _addressesArray: string[];
+  _voteCountsArray: bigint[];
+  _hasCandidatesArray: boolean[];
+  _canVoteArray: boolean[];
+  _isActiveArray: boolean[];
+  _isUserOwnerArray: boolean[];
 }
-
 
 @Injectable({
   providedIn: 'root'
 })
-export class CampaignListService {
-
-  private readonly _campaignFactoryContract: Contract;
+export class CampaignListService extends BaseMethodCaller {
 
   constructor() {
-    this._campaignFactoryContract = new CampaignFactoryContractBuilder()
+    const contract = new CampaignFactoryContractBuilder()
       .withAddress(environment.campaignFactory.address)
       .withOptions(environment.campaignFactory.options)
       .build();
+    super(contract);
   }
 
   getCampaignsList$(): Observable<CampaignListItem[]> {
-    return fromPromise<GetCampaignsDto>(this._campaignFactoryContract.methods.getCampaigns().call())
+    return this.__getData$<GetCampaignDto>('getCampaigns()')
       .pipe(
-        mergeMap((getCampaignsDtoResult =>
-              zip(getCampaignsDtoResult.addressesArray
-                .map((address: string, index: number) =>
-                  this._getCampaignName(address)
-                    .pipe(
-                      map(name => this._mapGetCampaignResultToCampaignListItem(getCampaignsDtoResult, index, name))
-                    )
-                )
-              )
-          )
-        )
+        map((result: GetCampaignDto) => {
+
+          return result._addressesArray.map((address, index) => ({
+            address,
+            name$: this._getCampaignName(address),
+            votesCount: result._voteCountsArray[index],
+            hasCandidates: result._hasCandidatesArray[index],
+            canUserVote: result._canVoteArray[index],
+            isActive: result._isActiveArray[index],
+            isUserOwner: result._isUserOwnerArray[index]
+          } as CampaignListItem));
+        })
       );
   }
 
   private _getCampaignName(campaignAddress: string): Observable<string> {
-    return fromPromise<string>(this._campaignFactoryContract.methods.getCampaignName(campaignAddress).call());
-  }
-
-  private _mapGetCampaignResultToCampaignListItem(getCampaignDto: GetCampaignsDto, index: number, campaignName: string): CampaignListItem {
-    return {
-      address: getCampaignDto.addressesArray[index],
-      name: campaignName,
-      votesCount: getCampaignDto.voteCountsArray[index],
-      hasCandidates: getCampaignDto.hasCandidatesArray[index],
-      canUserVote: getCampaignDto.canVoteArray[index],
-      isActive: getCampaignDto.isActiveArray[index],
-      isUserOwner: getCampaignDto.isUserOwnerArray[index]
-    } as CampaignListItem;
+    return this.__getData$('getCampaignName(string)', campaignAddress);
   }
 }
 
 
 export interface CampaignListItem {
   address: string;
-  name: string;
+  name$: Observable<string>;
   votesCount: bigint;
   hasCandidates: boolean;
   canUserVote: boolean;

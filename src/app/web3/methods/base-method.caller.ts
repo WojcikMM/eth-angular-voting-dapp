@@ -6,6 +6,27 @@ export class BaseMethodCaller {
   constructor(private readonly contract: Contract) {
   }
 
+  /**
+   * Use this method to get data from "Smart Contract".
+   * @param methodName - name of ABI Smart Contract method with parameters (ex. sampleSmartContractMethodName(string, uint) )
+   * @param params - parameters for Smart Contract method
+   * @protected
+   * @example
+   * export class SampleSmartContractService extends BaseMethodCaller {
+   *   constructor(){
+   *     const contract = new CampaignFactoryContractBuilder()
+   *       .withAddress(environment.campaignFactory.address)
+   *       .withOptions(environment.campaignFactory.options)
+   *       .build();
+   *     super(contract);
+   *   }
+   *
+   *   getMySmartContractData$(sampleParam1: string, samplePram2: number): Observable<SampleModel> {
+   *     return this.__getData$<SampleModel>('sampleSmartContractMethodName(string, uint)', sampleParam1, sampleParam2);
+   *   }
+   *
+   * }
+   */
   protected __getData$<T>(methodName: string, ...params: any[]): Observable<T> {
     if (!this.contract.methods[methodName]) {
       throw new Error('There is no method with given name at given ABI file');
@@ -13,14 +34,56 @@ export class BaseMethodCaller {
     return fromPromise<T>(this.contract.methods[methodName](...params).call());
   }
 
-  protected __sendData$(accountAddress: string, methodName: string, sendOptions: SendOptions, ...params: any[]): Observable<void> {
+  /**
+   * Use this method to post changes into "Smart Contract".
+   * @param methodName - name of ABI Smart Contract method with parameters (ex. sampleSmartContractMethodName(string, uint) )
+   * @param sendOptions - options for given transaction (i.e. client account called "from" )
+   * @param params - parameters for Smart Contract method
+   * @protected
+   * @description - Hint: To get data from transaction use Smart Contract Events.
+   * @example
+   * export class SampleSmartContractService extends BaseMethodCaller {
+   *   constructor(){
+   *     const contract = new CampaignFactoryContractBuilder()
+   *       .withAddress(environment.campaignFactory.address)
+   *       .withOptions(environment.campaignFactory.options)
+   *       .build();
+   *     super(contract);
+   *   }
+   *
+   *   getMySmartContractData(clientAccountAddress: string, sampleParam1: string, samplePram2: number): Observable<void> {
+   *    const options: SendOptions = {
+   *      from: clientAccountAddress
+   *    };
+   *     return this.__sendData$<SampleModel>('sampleSmartContractMethodName(string, uint)', options, sampleParam1, sampleParam2);
+   *   }
+   *
+   * }
+   */
+  protected __sendData$(methodName: string, sendOptions: SendOptions, ...params: any[]): Observable<void> {
     if (!this.contract.methods[methodName]) {
       throw new Error('There is no method with given name at given ABI file');
     }
     return fromPromise<void>(this.contract.methods[methodName](...params).send(sendOptions));
   }
 
-  protected __subscribeEventMapped$<T>(eventName: string, mapFunc: (eventValues: { [p: string]: any }) => T): Observable<T> {
+  /**
+   * Use this method to subscribe to Smart Contract Events
+   * @param eventName - name of your event
+   * @protected
+   * @deprecated Please use
+   */
+  protected __getBaseEvents$<T>(eventName: string): Observable<{ [p: string]: any }> {
+    return this.__getEvents$(eventName, x => x);
+  }
+
+  /**
+   * Use this method to subscribe to Smart Contract Events
+   * @param eventName - name of your event
+   * @param mapFunc - function to map event to given type
+   * @protected
+   */
+  protected __getEvents$<T>(eventName: string, mapFunc: (eventValues: { [p: string]: any }) => T): Observable<T> {
     if (!this.contract.events[eventName]) {
       throw new Error('There is no event with given name at given ABI file');
     }

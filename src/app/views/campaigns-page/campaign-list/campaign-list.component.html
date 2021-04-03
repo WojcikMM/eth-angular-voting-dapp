@@ -4,7 +4,7 @@
   <div class="campaign-list__container">
     <mat-card class="campaign-list__container__item" *ngFor="let campaign of campaigns$ | async">
       <mat-card-header>
-        <mat-card-title>{{campaign.name}}</mat-card-title>
+        <mat-card-title>{{campaign.name$ | async}}</mat-card-title>
       </mat-card-header>
       <img mat-card-image src="/assets/campaign-logo.png" alt="Campaign Logo"/>
       <mat-card-content>
