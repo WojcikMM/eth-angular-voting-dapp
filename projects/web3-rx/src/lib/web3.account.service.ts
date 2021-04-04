@@ -21,6 +21,10 @@ export class Web3AccountService {
     });
   }
 
+  get connectedAccountSnapshot(): string {
+    return this._accountChanged.value;
+  }
+
   requestLogin(): void {
     web3.eth.requestAccounts()
       .then(accounts => {
