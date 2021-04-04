@@ -1,1 +1,16 @@
-<p>create-campaign-modal works!</p>
+<h2 mat-dialog-title>Create Campaign</h2>
+<mat-dialog-content>
+  <mat-form-field appearance="fill">
+    <mat-label>Campaign Name</mat-label>
+    <input matInput [formControl]="campaignName"/>
+    <mat-error>Campaign name is required.</mat-error>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button
+          [disabled]="campaignName.invalid"
+          [mat-dialog-close]="campaignName.value">
+    Create
+  </button>
+</mat-dialog-actions>

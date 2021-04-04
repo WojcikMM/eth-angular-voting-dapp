@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BaseContractService } from 'web3-rx';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { environment } from '../../../../environments/environment';
 import { CampaignFactoryContractBuilder } from '../../../web3';
+import { Web3AccountServiceProvider } from 'src/app/services/web3.account.service';
 
 interface GetCampaignDto {
   _addressesArray: string[];
@@ -19,12 +19,30 @@ interface GetCampaignDto {
 })
 export class CampaignListService extends BaseContractService {
 
-  constructor() {
-    const contract = new CampaignFactoryContractBuilder()
-      .withAddress(environment.campaignFactory.address)
-      .withOptions(environment.campaignFactory.options)
-      .build();
-    super(contract);
+  constructor(private readonly web3AccountServiceProvider: Web3AccountServiceProvider,
+              campaignFactoryContractBuilder: CampaignFactoryContractBuilder) {
+    super(campaignFactoryContractBuilder.build());
+  }
+
+  campaignCreatedEvent$(): Observable<CampaignListItem> {
+    return this.__getEvents$('CampaignCreated', eventValues => {
+      const campaignAddress = eventValues[0] as string;
+      const campaignName = eventValues[1] as string;
+      return {
+        address: campaignAddress,
+        name$: of(campaignName),
+        votesCount: BigInt(0),
+        isUserOwner: true,
+        isActive: true,
+        canUserVote: true,
+        hasCandidates: false
+      } as CampaignListItem;
+    });
+  }
+
+  createCampaign$(campaignName: string): Observable<void> {
+    const account = this.web3AccountServiceProvider.connectedAccountSnapshot;
+    return this.__sendData$('createCampaign(string)', {from: account}, campaignName);
   }
 
   getCampaignsList$(): Observable<CampaignListItem[]> {
@@ -46,7 +64,7 @@ export class CampaignListService extends BaseContractService {
   }
 
   private _getCampaignName(campaignAddress: string): Observable<string> {
-    return this.__getData$('getCampaignName(string)', campaignAddress);
+    return this.__getData$('getCampaignName(address)', campaignAddress);
   }
 }
 

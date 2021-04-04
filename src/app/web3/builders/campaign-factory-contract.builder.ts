@@ -1,8 +1,15 @@
-import {BaseContractBuilder} from 'web3-rx';
+import { BaseContractBuilder } from 'web3-rx';
 import campaignFactoryAbi from '../abi-files/campaign-factory.abi.json';
+import { environment } from '../../../environments/environment';
+import { Injectable } from '@angular/core';
 
+@Injectable({
+  providedIn: 'root'
+})
 export class CampaignFactoryContractBuilder extends BaseContractBuilder {
   constructor() {
     super(campaignFactoryAbi);
+    this.withAddress(environment.campaignFactory.address);
+    this.withOptions(environment.campaignFactory.options);
   }
 }

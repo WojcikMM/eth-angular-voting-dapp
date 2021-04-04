@@ -1,19 +1,15 @@
 <div class="campaign-list">
-  <h1 class="campaign-list__header">Campaigns</h1>
+  <div class="campaign-list__header">
+    <h1 class="campaign-list__header__text">Campaigns</h1>
+    <div class="campaign-list__header__create-campaign">
+      <button mat-flat-button color="primary" (click)="onCreateCampaignClicked()">Create Campaign</button>
+    </div>
+  </div>
 
   <div class="campaign-list__container">
-    <mat-card class="campaign-list__container__item" *ngFor="let campaign of campaigns$ | async">
-      <mat-card-header>
-        <mat-card-title>{{campaign.name$ | async}}</mat-card-title>
-      </mat-card-header>
-      <img mat-card-image src="/assets/campaign-logo.png" alt="Campaign Logo"/>
-      <mat-card-content>
-        <mat-card-subtitle>Vote count: 0</mat-card-subtitle>
-        <mat-card-subtitle>Status: active</mat-card-subtitle>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-button mat-flat-button color="primary" [routerLink]="['/campaign', '1']">Preview</button>
-      </mat-card-actions>
-    </mat-card>
+    <app-campaign-list-item *ngFor="let campaign of campaignListItems"
+                            class="campaign-list__container__item"
+                            [campaign]="campaign">
+    </app-campaign-list-item>
   </div>
 </div>
