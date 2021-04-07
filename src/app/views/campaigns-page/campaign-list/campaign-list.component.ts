@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { CampaignListItem, CampaignListService } from './campaign-list.service';
-import { mergeMap } from 'rxjs/operators';
+import { CampaignListService, CampaignListItem } from './campaign-list.service';
+import { filter, mergeMap } from 'rxjs/operators';
 import { CreateCampaignModalComponent } from '../modals';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-campaign-list',
@@ -13,6 +14,7 @@ export class CampaignListComponent implements OnInit {
   campaignListItems: CampaignListItem[] = [];
 
   constructor(private readonly campaignListService: CampaignListService,
+              private readonly snackBar: MatSnackBar,
               private readonly dialog: MatDialog) {
   }
 
@@ -34,7 +36,10 @@ export class CampaignListComponent implements OnInit {
     this.dialog.open(CreateCampaignModalComponent, {width: '250px'})
       .afterClosed()
       .pipe(
+        filter((campaignName: string) => !!campaignName),
         mergeMap((campaignName: string) => this.campaignListService.createCampaign$(campaignName))
-      ).subscribe();
+      ).subscribe(() => {
+      this.snackBar.open('Campaign successfully created.', 'Ok');
+    });
   }
 }

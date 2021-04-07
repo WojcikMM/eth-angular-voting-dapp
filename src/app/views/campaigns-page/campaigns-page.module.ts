@@ -12,6 +12,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { CampaignListItemComponent } from './campaign-list/campaign-list-item/campaign-list-item.component';
+import { MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 const routes: Routes = [
@@ -45,12 +46,14 @@ const routes: Routes = [
     MatButtonModule,
     MatInputModule,
     MatFormFieldModule,
+    MatSnackBarModule,
     MatDialogModule,
     RouterModule.forChild(routes),
     ReactiveFormsModule
   ],
   providers: [
-    CampaignFactoryContractBuilder
+    CampaignFactoryContractBuilder,
+    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2000, horizontalPosition: 'end', verticalPosition: 'top'}}
   ]
 
 })

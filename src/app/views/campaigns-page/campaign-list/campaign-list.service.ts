@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { CampaignFactoryContractBuilder } from '../../../web3';
 import { Web3AccountServiceProvider } from 'src/app/services/web3.account.service';
 
-interface GetCampaignDto {
+interface GetCampaignsListDto {
   _addressesArray: string[];
   _voteCountsArray: bigint[];
   _hasCandidatesArray: boolean[];
@@ -46,9 +46,9 @@ export class CampaignListService extends BaseContractService {
   }
 
   getCampaignsList$(): Observable<CampaignListItem[]> {
-    return this.__getData$<GetCampaignDto>('getCampaigns()')
+    return this.__getData$<GetCampaignsListDto>('getCampaigns()')
       .pipe(
-        map((result: GetCampaignDto) => {
+        map((result: GetCampaignsListDto) => {
 
           return result._addressesArray.map((address, index) => ({
             address,
@@ -67,7 +67,6 @@ export class CampaignListService extends BaseContractService {
     return this.__getData$('getCampaignName(address)', campaignAddress);
   }
 }
-
 
 export interface CampaignListItem {
   address: string;

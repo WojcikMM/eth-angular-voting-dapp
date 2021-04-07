@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CampaignListItem } from '../campaign-list.service';
 
 @Component({
@@ -6,15 +6,9 @@ import { CampaignListItem } from '../campaign-list.service';
   templateUrl: './campaign-list-item.component.html',
   styleUrls: ['./campaign-list-item.component.scss']
 })
-export class CampaignListItemComponent implements OnInit {
+export class CampaignListItemComponent {
 
   @Input()
   campaign?: CampaignListItem;
-
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
 
 }

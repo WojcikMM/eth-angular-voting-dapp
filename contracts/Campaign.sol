@@ -75,6 +75,10 @@ contract Campaign {
     // GETTERS
 
     function getCampaignInfo() public view returns (string memory _name, uint _voteCount, bool _userCanVote, address [] memory _candidatesAddresses, bool _isActive, bool _userIsOwner) {
+        (_name, _voteCount, _userCanVote, _candidatesAddresses, _isActive, _userIsOwner) = getCampaignInfo(msg.sender);
+    }
+
+    function getCampaignInfo(address senderAddress) external view returns (string memory _name, uint _voteCount, bool _userCanVote, address [] memory _candidatesAddresses, bool _isActive, bool _userIsOwner) {
         address[] memory _addresses = new address[](candidates.length);
         for(uint i; i< candidates.length; i++){
             _addresses[i] = address(candidates[i]);
@@ -86,10 +90,6 @@ contract Campaign {
         _candidatesAddresses = _addresses;
         _isActive = isActive;
         _userIsOwner = msg.sender == campaignOwner;
-    }
-
-    function getCampaignInfo(address senderAddress) external view returns (string memory _name, uint _voteCount, bool _userCanVote, address [] memory _candidatesAddresses, bool _isActive, bool _userIsOwner) {
-        (_name, _voteCount, _userCanVote, _candidatesAddresses, _isActive,) = getCampaignInfo();
         _userIsOwner = senderAddress == campaignOwner;
 
     }
