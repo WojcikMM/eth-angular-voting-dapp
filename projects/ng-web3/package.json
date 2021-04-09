@@ -1,6 +1,6 @@
 {
   "name": "ng-web3",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": {
     "name": "WojcikMM",
     "email": "m.mwojcik@outlook.com",
@@ -24,9 +24,6 @@
     "smart contract",
     "smart contracts"
   ],
-  "publishConfig": {
-    "registry":"https://npm.pkg.github.com"
-  },
   "license": "SEE LICENCE IN LICENCE",
   "homepage": "https://github.com/WojcikMM/tslint-import-rules/projects/ng-web3/#readme"
 }
