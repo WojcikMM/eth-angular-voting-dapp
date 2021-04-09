@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BaseContractBuilder } from 'web3-rx';
+import { BaseContractBuilder } from 'ng-web3';
 import campaignAbi from '../abi-files/campaign.abi.json';
 
 @Injectable({

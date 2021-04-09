@@ -1,5 +1,5 @@
 {
-  "name": "@wojcikmm/web3-rx",
+  "name": "ng-web3",
   "version": "0.0.1",
   "author": {
     "name": "WojcikMM",
@@ -28,5 +28,5 @@
     "registry":"https://npm.pkg.github.com"
   },
   "license": "SEE LICENCE IN LICENCE",
-  "homepage": "https://github.com/WojcikMM/tslint-import-rules/projects/web3-rx/#readme"
+  "homepage": "https://github.com/WojcikMM/tslint-import-rules/projects/ng-web3/#readme"
 }

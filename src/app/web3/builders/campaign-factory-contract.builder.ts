@@ -1,4 +1,4 @@
-import { BaseContractBuilder } from 'web3-rx';
+import { BaseContractBuilder } from 'ng-web3';
 import campaignFactoryAbi from '../abi-files/campaign-factory.abi.json';
 import { environment } from '../../../environments/environment';
 import { Injectable } from '@angular/core';

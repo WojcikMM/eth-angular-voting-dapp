@@ -1,6 +1,8 @@
+import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { web3 } from './web3';
 
+@Injectable()
 export class Web3AccountService {
 
   readonly connectedAccount$: Observable<string>;

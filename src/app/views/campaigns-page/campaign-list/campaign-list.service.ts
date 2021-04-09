@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { BaseContractService } from 'web3-rx';
+import { BaseContractService } from 'ng-web3';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Web3AccountService } from 'ng-web3';
 import { CampaignFactoryContractBuilder } from '../../../web3';
-import { Web3AccountServiceProvider } from 'src/app/services/web3.account.service';
 
 interface GetCampaignsListDto {
   _addressesArray: string[];
@@ -19,7 +19,7 @@ interface GetCampaignsListDto {
 })
 export class CampaignListService extends BaseContractService {
 
-  constructor(private readonly web3AccountServiceProvider: Web3AccountServiceProvider,
+  constructor(private readonly web3AccountService: Web3AccountService,
               campaignFactoryContractBuilder: CampaignFactoryContractBuilder) {
     super(campaignFactoryContractBuilder.build());
   }
@@ -41,7 +41,7 @@ export class CampaignListService extends BaseContractService {
   }
 
   createCampaign$(campaignName: string): Observable<void> {
-    const account = this.web3AccountServiceProvider.connectedAccountSnapshot;
+    const account = this.web3AccountService.connectedAccountSnapshot;
     return this.__sendData$('createCampaign(string)', {from: account}, campaignName);
   }
 

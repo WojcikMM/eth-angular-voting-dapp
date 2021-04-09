@@ -1,4 +1,4 @@
-import {Contract, ContractOptions} from 'web3-eth-contract';
+import { Contract, ContractOptions } from 'web3-eth-contract';
 import { web3 } from './web3';
 
 /**
@@ -11,7 +11,7 @@ import { web3 } from './web3';
 export abstract class BaseContractBuilder {
   private _address?: string;
 
-  protected constructor(protected abiDefinition: any, protected options?: ContractOptions) {
+  protected constructor(protected readonly abiDefinition: any, protected options?: ContractOptions) {
     if (!abiDefinition || abiDefinition?.length === 0) {
       throw new Error('Abi definition must be specified.');
     }

@@ -1,6 +1,6 @@
 {
   "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
-  "dest": "../../dist/web3-rx",
+  "dest": "../../dist/ng-web3",
   "lib": {
     "entryFile": "src/public-api.ts",
     "umdModuleIds": {

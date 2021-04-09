@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BaseContractService } from 'web3-rx';
+import { BaseContractService } from 'ng-web3';
 import { CampaignContractBuilder } from '../../../web3';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';

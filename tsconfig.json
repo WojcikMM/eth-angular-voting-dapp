@@ -23,9 +23,9 @@
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
     "paths": {
-      "web3-rx": [
-        "dist/web3-rx/web3-rx",
-        "dist/web3-rx"
+      "ng-web3": [
+        "dist/ng-web3/ng-web3",
+        "dist/ng-web3"
       ]
     }
   },

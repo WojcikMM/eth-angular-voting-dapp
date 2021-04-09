@@ -1,10 +1,9 @@
-import { fromPromise } from 'rxjs/internal-compatibility';
 import { Contract, SendOptions, EventData } from 'web3-eth-contract';
 import { Observable } from 'rxjs';
 
-// TODO: start using "from" instead of "fromPromise"
 /**
- * TODO: ADD DOCS HERE
+ * This is base class for building "Smart Contract" interaction services
+ * @param _contract - optional parameter you can provide Contract object by __initializeContract method
  */
 export class BaseContractService {
 
@@ -42,7 +41,17 @@ export class BaseContractService {
    * }
    */
   protected __getData$<T>(methodName: string, ...params: unknown[]): Observable<T> {
-    return this._checkContractMethod(methodName) && fromPromise<T>(this._contract?.methods[methodName](...params).call());
+    this._checkContractMethod(methodName);
+    return new Observable((observer) => {
+      this._contract?.methods[methodName](...params).call()
+        .then((data: T) => {
+          observer.next(data);
+          observer.complete();
+        })
+        .catch((err: any) => {
+          observer.error(err);
+        });
+    });
   }
 
   /**
@@ -72,7 +81,17 @@ export class BaseContractService {
    * }
    */
   protected __sendData$(methodName: string, sendOptions: SendOptions, ...params: unknown[]): Observable<void> {
-    return this._checkContractMethod(methodName) && fromPromise<void>(this._contract?.methods[methodName](...params).send(sendOptions));
+    this._checkContractMethod(methodName);
+    return new Observable((observer) => {
+      this._contract?.methods[methodName](...params).send(sendOptions)
+        .then(() => {
+          observer.next();
+          observer.complete();
+        })
+        .catch((err: any) => {
+          observer.error(err);
+        });
+    });
   }
 
   /**

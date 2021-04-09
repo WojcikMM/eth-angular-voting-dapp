@@ -14,8 +14,8 @@
     "posttruffle:compile": "node copy-abi-files.js",
     "truffle:migrate": "truffle migrate",
     "truffle:test": "truffle test",
-    "web3-rx:build": "ng build web3-rx",
-    "web3-rx:publish": "npm publish --prefix ./dist/web3-rx"
+    "ng-web3:build": "ng build ng-web3",
+    "ng-web3:publish": "npm publish --prefix ./dist/ng-web3"
   },
   "private": true,
   "dependencies": {
