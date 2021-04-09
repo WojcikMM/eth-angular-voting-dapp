@@ -2,7 +2,7 @@
 <mat-dialog-content>
   <mat-form-field>
     <mat-label>Campaign Name</mat-label>
-    <input matInput [formControl]="campaignName"/>
+    <input matInput autocomplete="off" [formControl]="campaignName"/>
     <mat-error>Campaign name is required.</mat-error>
   </mat-form-field>
 </mat-dialog-content>
