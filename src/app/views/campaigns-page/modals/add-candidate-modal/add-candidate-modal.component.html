@@ -1,1 +1,16 @@
-<p>add-candidate-modal works!</p>
+<h2 mat-dialog-title>Add Candidate</h2>
+<mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Candidate Name</mat-label>
+    <input matInput [formControl]="candidateName"/>
+    <mat-error>Candidate name is required.</mat-error>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button
+          [disabled]="candidateName.invalid"
+          [mat-dialog-close]="candidateName.value">
+    Add
+  </button>
+</mat-dialog-actions>

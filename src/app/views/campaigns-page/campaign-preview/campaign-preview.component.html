@@ -1,6 +1,7 @@
 <div *ngIf="campaignModel" class="campaign-preview">
   <app-page-title-bar [title]="campaignModel.name"
-                      actionButtonText="">
+                      actionButtonText="Add Candidate"
+                      (actionButtonClickedEvent)="onAddCandidateClicked()">
   </app-page-title-bar>
 
   <div class="campaign-preview-alert">
@@ -32,4 +33,13 @@
       </mat-list-item>
     </ng-container>
   </mat-list>
+
+  <div class="campaign-preview__footer">
+    <button mat-raised-button
+            [routerLink]="['/campaign/list']">
+      Back to list
+    </button>
+  </div>
 </div>
+
+

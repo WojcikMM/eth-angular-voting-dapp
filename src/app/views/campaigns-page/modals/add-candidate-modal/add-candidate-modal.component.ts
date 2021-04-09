@@ -1,15 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-candidate-modal',
   templateUrl: './add-candidate-modal.component.html',
   styleUrls: ['./add-candidate-modal.component.scss']
 })
-export class AddCandidateModalComponent implements OnInit {
+export class AddCandidateModalComponent {
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+  candidateName: FormControl = new FormControl('', Validators.required);
 
 }

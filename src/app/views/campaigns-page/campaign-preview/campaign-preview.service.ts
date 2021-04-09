@@ -3,6 +3,7 @@ import { BaseContractService } from 'ng-web3';
 import { CampaignContractBuilder } from '../../../web3';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { SendOptions } from 'web3-eth-contract';
 
 interface GetCampaignDto {
   _name: string;
@@ -66,5 +67,9 @@ export class CampaignPreviewService extends BaseContractService {
         name$: this._getCandidateName(candidateAddress)
       }))
     };
+  }
+
+  addCandidate$(candidateName: string, sendOptions: SendOptions): Observable<void> {
+    return this.__sendData$('createCandidate(string)', sendOptions, candidateName);
   }
 }
