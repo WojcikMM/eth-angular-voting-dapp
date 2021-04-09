@@ -1,0 +1,12 @@
+<div class="page-title-bar">
+  <h1 class="page-title-bar__text">
+    {{title}}
+  </h1>
+  <div *ngIf="!!actionButtonText" class="page-title-bar__actions">
+    <button mat-flat-button
+            color="primary"
+            (click)="actionButtonClickedEvent.emit()">
+      {{actionButtonText}}
+    </button>
+  </div>
+</div>

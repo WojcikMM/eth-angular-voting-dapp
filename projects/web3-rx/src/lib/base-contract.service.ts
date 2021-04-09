@@ -8,7 +8,16 @@ import { Observable } from 'rxjs';
  */
 export class BaseContractService {
 
-  constructor(private readonly contract: Contract) {
+  constructor(private _contract?: Contract) {
+  }
+
+  /**
+   * Use this method when you cannot pass contract object through constructor
+   * @param contract - contract object
+   * @protected
+   */
+  protected __initializeContract(contract: Contract): void {
+    this._contract = contract;
   }
 
   /**
@@ -33,10 +42,7 @@ export class BaseContractService {
    * }
    */
   protected __getData$<T>(methodName: string, ...params: unknown[]): Observable<T> {
-    if (!this.contract.methods[methodName]) {
-      throw new Error('There is no method with given name at given ABI file');
-    }
-    return fromPromise<T>(this.contract.methods[methodName](...params).call());
+    return this._checkContractMethod(methodName) && fromPromise<T>(this._contract?.methods[methodName](...params).call());
   }
 
   /**
@@ -66,10 +72,7 @@ export class BaseContractService {
    * }
    */
   protected __sendData$(methodName: string, sendOptions: SendOptions, ...params: unknown[]): Observable<void> {
-    if (!this.contract.methods[methodName]) {
-      throw new Error('There is no method with given name at given ABI file');
-    }
-    return fromPromise<void>(this.contract.methods[methodName](...params).send(sendOptions));
+    return this._checkContractMethod(methodName) && fromPromise<void>(this._contract?.methods[methodName](...params).send(sendOptions));
   }
 
   /**
@@ -89,15 +92,13 @@ export class BaseContractService {
    * @protected
    */
   protected __getEvents$<T>(eventName: string, mapFunc: (eventValues: { [p: string]: unknown }) => T): Observable<T> {
-    if (!this.contract.events[eventName]) {
-      throw new Error('There is no event with given name at given ABI file');
-    }
+    this._checkContractEvent(eventName);
     if (!mapFunc) {
       throw new Error('You must precise map function for this handler');
     }
 
     return new Observable<T>((observer) => {
-      this.contract.events[eventName]({}, (err: Error, result: EventData) => {
+      this._contract?.events[eventName]({}, (err: Error, result: EventData) => {
         if (!!err) {
           observer.error(err);
         } else {
@@ -105,5 +106,27 @@ export class BaseContractService {
         }
       });
     });
+  }
+
+  private _checkContractMethod = (methodName: string) => this._checkContract('method', methodName);
+  private _checkContractEvent = (eventName: string) => this._checkContract('event', eventName);
+
+  private _checkContract(checkType: 'event' | 'method', methodOrEventName: string): true {
+    if (!this._contract) {
+      throw new Error('Contract not initialized. Please call __initialize method first.');
+    }
+
+    if (!methodOrEventName) {
+      throw new Error(`You must specified not empty ${checkType} name.`);
+    }
+
+    if (
+      (checkType === 'method' && !this._contract.methods[methodOrEventName]) ||
+      (checkType === 'event' && !this._contract.events[methodOrEventName])
+    ) {
+      throw new Error(`There is no ${checkType} with given name at given ABI file`);
+    }
+
+    return true;
   }
 }

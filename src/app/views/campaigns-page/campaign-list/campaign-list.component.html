@@ -1,10 +1,8 @@
 <div class="campaign-list">
-  <div class="campaign-list__header">
-    <h1 class="campaign-list__header__text">Campaigns</h1>
-    <div class="campaign-list__header__create-campaign">
-      <button mat-flat-button color="primary" (click)="onCreateCampaignClicked()">Create Campaign</button>
-    </div>
-  </div>
+  <app-page-title-bar title="Campaigns"
+                      actionButtonText="Create Campaign"
+                      (actionButtonClickedEvent)="onCreateCampaignClicked()">
+  </app-page-title-bar>
 
   <div class="campaign-list__container">
     <app-campaign-list-item *ngFor="let campaign of campaignListItems"

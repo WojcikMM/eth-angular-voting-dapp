@@ -13,6 +13,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { CampaignListItemComponent } from './campaign-list/campaign-list-item/campaign-list-item.component';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatLineModule } from '@angular/material/core';
+import { MatListModule } from '@angular/material/list';
+import { MatDividerModule } from '@angular/material/divider';
+import { ComponentsModule } from '../../components/components.module';
 
 
 const routes: Routes = [
@@ -49,7 +54,12 @@ const routes: Routes = [
     MatSnackBarModule,
     MatDialogModule,
     RouterModule.forChild(routes),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatIconModule,
+    MatLineModule,
+    MatListModule,
+    MatDividerModule,
+    ComponentsModule,
   ],
   providers: [
     CampaignFactoryContractBuilder,
