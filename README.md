@@ -1,27 +1,37 @@
 # EthAngularApp
+# Ethereum React dApp
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.4.
+This is project to present ability of usage Ethereum Blockchain with Smart Contracts.
 
-## Development server
+Project contains fullstack app:
+* Ethereum blockchain definition files - called in this docs `Truffle` files
+* Ethereum client in Angular - called in this docs `Frontend` files
+-----------------------------------------------------------------------------------------
+## Project structure
+In this project there are source files for:
+### Truffle
+* `contracts` - contains contracts and solidity libraries definitions
+* `migrations` - contains migration files for deploy `contracts`
+* `test` - contains tests for `contracts`
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+### Frontend
+* `src` - contains source files for client app
+-----------------------------------------------------------------------------------------
+## Prerequisites
+* Nodejs - LTS version
+* Ganache (_optional_ but this is better option for development )
+-----------------------------------------------------------------------------------------
+## Available scripts
 
-## Code scaffolding
+### Truffle
+* `npm run truffle:compile` - compiles contracts and extract ABI files to `build` directory
+* `npm run truffle:test` - run tests in `test` directory.
+* `npm run truffle:migrate` - deploys contract to blockchain (defined in  `truffle-config.js`)
+* `npm run truffle:develop` - starts local development blockchain ( but prefer use `Ganache` app)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Frontend
+* `npm run start` - runs application in development locally
+* `npm run build` - build application and move artifacts to `build` directory
+* `npm run test` - runs application's tests
+-----------------------------------------------------------------------------------------
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
