@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { web3 } from './web3';
 
 /**
@@ -13,10 +13,11 @@ export class Web3AccountService {
    */
   readonly connectedAccount$: Observable<string>;
 
-  private readonly _accountChanged: BehaviorSubject<string>;
+  private readonly _accountChanged: Subject<string>;
+  private _lastConnectedAccount = '';
 
   constructor() {
-    this._accountChanged = new BehaviorSubject<string>('');
+    this._accountChanged = new Subject<string>();
     this.connectedAccount$ = this._accountChanged.asObservable();
 
     web3.eth.getAccounts()
@@ -34,7 +35,7 @@ export class Web3AccountService {
    * @link connectedAccount$ - use this for observable stream
    */
   get connectedAccountSnapshot(): string {
-    return this._accountChanged.value;
+    return this._lastConnectedAccount;
   }
 
   /**
@@ -46,12 +47,14 @@ export class Web3AccountService {
         this._accountChangedHandler(accounts);
       })
       .catch(() => {
+        this._lastConnectedAccount = '';
         this._accountChanged.next('');
       });
   }
 
   private _accountChangedHandler(accounts: string[]): void {
     const account = accounts.length !== 1 ? '' : accounts[0];
+    this._lastConnectedAccount = account;
     this._accountChanged.next(account);
   }
 

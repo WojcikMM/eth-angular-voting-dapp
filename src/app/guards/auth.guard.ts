@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, UrlTree, Router } from '@angular/router';
 import { Web3AccountService } from 'ng-web3';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +13,12 @@ export class AuthGuard implements CanActivate {
               private readonly _router: Router) {
   }
 
-  canActivate(): boolean | UrlTree {
-    return !!this._accountService.connectedAccountSnapshot || this._router.createUrlTree(['login']);
+  canActivate(): Observable<boolean | UrlTree> {
+    return this._accountService.connectedAccount$.pipe(
+      map((isConnected: string) => {
+        return !!isConnected || this._router.createUrlTree(['login']);
+      })
+    );
   }
 
 }

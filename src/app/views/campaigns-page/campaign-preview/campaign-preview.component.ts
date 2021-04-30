@@ -32,9 +32,11 @@ export class CampaignPreviewComponent {
       .afterClosed()
       .pipe(
         filter((candidateName: string) => !!candidateName),
-        mergeMap((candidateName: string) => this._campaignPreviewService.addCandidate$(candidateName, {
-          from: this._web3AccountService.connectedAccountSnapshot
-        }))
+        mergeMap((candidateName: string) =>
+          this._web3AccountService.connectedAccount$.pipe(
+            mergeMap((connectedAccount: string) => this._campaignPreviewService.addCandidate$(candidateName, { from: connectedAccount }))
+          )
+        )
       ).subscribe(() => {
       this._snackBar.open('Candidate successfully added.', 'Ok');
     });

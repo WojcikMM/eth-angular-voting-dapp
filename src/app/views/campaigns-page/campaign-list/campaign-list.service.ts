@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BaseContractService } from 'ng-web3';
 import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, mergeMap } from 'rxjs/operators';
 import { Web3AccountService } from 'ng-web3';
 import { CampaignFactoryContractBuilder } from '../../../web3';
 
@@ -41,8 +41,9 @@ export class CampaignListService extends BaseContractService {
   }
 
   createCampaign$(campaignName: string): Observable<void> {
-    const account = this.web3AccountService.connectedAccountSnapshot;
-    return this.__sendData$('createCampaign(string)', {from: account}, campaignName);
+    return this.web3AccountService.connectedAccount$.pipe(
+      mergeMap(connectedAccount => this.__sendData$('createCampaign(string)', {from: connectedAccount}, campaignName))
+    );
   }
 
   getCampaignsList$(): Observable<CampaignListItem[]> {
