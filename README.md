@@ -1,5 +1,4 @@
-# EthAngularApp
-# Ethereum React dApp
+# Ethereum Angular dApp
 
 This is project to present ability of usage Ethereum Blockchain with Smart Contracts.
 
