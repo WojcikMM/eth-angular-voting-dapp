@@ -1,7 +1,7 @@
 # List of tasks TODO:
 
-- use custom webpack to support :
-
+- use custom webpack to support :  
+  Try https://stackoverflow.com/questions/51068908/angular-cli-custom-webpack-config
 ```json
 {
   "browser": {
