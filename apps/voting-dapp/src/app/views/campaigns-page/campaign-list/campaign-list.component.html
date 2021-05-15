@@ -1,0 +1,17 @@
+<div class="campaign-list">
+  <voting-dapp-page-title-bar
+    title="Campaigns"
+    actionButtonText="Create Campaign"
+    (actionButtonClickedEvent)="onCreateCampaignClicked()"
+  >
+  </voting-dapp-page-title-bar>
+
+  <div class="campaign-list__container">
+    <voting-dapp-campaign-list-item
+      *ngFor="let campaign of campaignListItems"
+      class="campaign-list__container__item"
+      [campaign]="campaign"
+    >
+    </voting-dapp-campaign-list-item>
+  </div>
+</div>

@@ -1,55 +1,70 @@
 {
-  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "cli": {
-    "analytics": false
-  },
   "version": 1,
-  "newProjectRoot": "projects",
-  "projects": {
-    "eth-angular-app": {
-      "projectType": "application",
-      "schematics": {
-        "@schematics/angular:component": {
-          "style": "scss"
-        },
-        "@schematics/angular:application": {
-          "strict": true
-        }
+  "cli": {
+    "analytics": false,
+    "defaultCollection": "@nrwl/angular"
+  },
+  "defaultProject": "voting-dapp",
+  "schematics": {
+    "@nrwl/angular": {
+      "application": {
+        "linter": "eslint"
       },
-      "root": "",
-      "sourceRoot": "src",
-      "prefix": "app",
+      "library": {
+        "linter": "eslint"
+      },
+      "storybook-configuration": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/angular:application": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest"
+    },
+    "@nrwl/angular:component": {
+      "style": "scss"
+    }
+  },
+  "projects": {
+    "voting-dapp": {
+      "projectType": "application",
+      "root": "apps/voting-dapp",
+      "sourceRoot": "apps/voting-dapp/src",
+      "prefix": "eth-angular-dapp",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "allowedCommonJsDependencies": [
-              "web3",
-              "bn.js",
-              "hash.js"
-            ],
-            "outputPath": "dist/eth-angular-app",
-            "index": "src/index.html",
-            "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "tsconfig.app.json",
+            "outputPath": "dist/apps/voting-dapp",
+            "index": "apps/voting-dapp/src/index.html",
+            "main": "apps/voting-dapp/src/main.ts",
+            "polyfills": "apps/voting-dapp/src/polyfills.ts",
+            "tsConfig": "apps/voting-dapp/tsconfig.app.json",
             "aot": true,
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              "apps/voting-dapp/src/favicon.ico",
+              "apps/voting-dapp/src/assets"
             ],
             "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "src/styles.scss"
+              "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
+              "apps/voting-dapp/src/styles/styles.scss"
             ],
+            "allowedCommonJsDependencies": ["web3", "hash.js"],
             "scripts": []
           },
           "configurations": {
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
+                  "replace": "apps/voting-dapp/src/environments/environment.ts",
+                  "with": "apps/voting-dapp/src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -62,13 +77,13 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
                 }
               ]
             }
@@ -77,106 +92,89 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "eth-angular-app:build"
+            "browserTarget": "voting-dapp:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "eth-angular-app:build:production"
+              "browserTarget": "voting-dapp:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "eth-angular-app:build"
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "src/test.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "tsconfig.spec.json",
-            "karmaConfig": "karma.conf.js",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "src/styles.scss"
-            ],
-            "scripts": []
+            "browserTarget": "voting-dapp:build"
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "tsconfig.app.json",
-              "tsconfig.spec.json",
-              "e2e/tsconfig.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "apps/voting-dapp/src/**/*.ts",
+              "apps/voting-dapp/src/**/*.html"
             ]
           }
         },
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/voting-dapp"],
           "options": {
-            "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "eth-angular-app:serve"
+            "jestConfig": "apps/voting-dapp/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "voting-dapp-e2e": {
+      "root": "apps/voting-dapp-e2e",
+      "sourceRoot": "apps/voting-dapp-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/voting-dapp-e2e/cypress.json",
+            "tsConfig": "apps/voting-dapp-e2e/tsconfig.e2e.json",
+            "devServerTarget": "voting-dapp:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "eth-angular-app:serve:production"
+              "devServerTarget": "voting-dapp:serve:production"
             }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/voting-dapp-e2e/**/*.{js,ts}"]
           }
         }
       }
     },
     "ng-web3": {
       "projectType": "library",
-      "root": "projects/ng-web3",
-      "sourceRoot": "projects/ng-web3/src",
-      "prefix": "lib",
+      "root": "libs/ng-web3",
+      "sourceRoot": "libs/ng-web3/src",
+      "prefix": "eth-angular-dapp",
       "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": "projects/ng-web3/tsconfig.lib.json",
-            "project": "projects/ng-web3/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/ng-web3/tsconfig.lib.prod.json",
-              "project": "projects/ng-web3/ng-package.json"
-            }
+            "lintFilePatterns": [
+              "libs/ng-web3/src/**/*.ts",
+              "libs/ng-web3/src/**/*.html"
+            ]
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/ng-web3"],
           "options": {
-            "main": "projects/ng-web3/src/test.ts",
-            "tsConfig": "projects/ng-web3/tsconfig.spec.json",
-            "karmaConfig": "projects/ng-web3/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/ng-web3/tsconfig.lib.json",
-              "projects/ng-web3/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "jestConfig": "libs/ng-web3/jest.config.js",
+            "passWithNoTests": true
           }
         }
       }
     }
-  },
-  "defaultProject": "eth-angular-app"
+  }
 }

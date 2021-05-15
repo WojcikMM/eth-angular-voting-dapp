@@ -1,0 +1,33 @@
+{
+  "implicitDependencies": {
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
+    ".eslintrc.json": "*"
+  },
+  "affected": {
+    "defaultBase": "master"
+  },
+  "npmScope": "eth-angular-dapp",
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@nrwl/workspace/tasks-runners/default",
+      "options": {
+        "cacheableOperations": ["build", "lint", "test", "e2e"]
+      }
+    }
+  },
+  "projects": {
+    "voting-dapp": {
+      "tags": []
+    },
+    "voting-dapp-e2e": {
+      "tags": [],
+      "implicitDependencies": ["voting-dapp"]
+    },
+    "ng-web3": {
+      "tags": []
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "name": "ng-web3",
+  "version": "1.0.0",
+  "description": "Angular web3 package to help Solidity Smart Contract connection",
+  "main": "index.ts",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WojcikMM/eth-angular-voting-dapp.git"
+  },
+  "keywords": [
+    "web3",
+    "ng",
+    "angular",
+    "rxjs",
+    "solidity",
+    "smart-contract",
+    "builders",
+    "web3-core",
+    "ethereum",
+    "ether"
+  ],
+  "author": "WojcikMM",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/WojcikMM/eth-angular-voting-dapp/issues"
+  },
+  "homepage": "https://github.com/WojcikMM/eth-angular-voting-dapp#readme"
+}

@@ -1,0 +1,17 @@
+.page-title-bar {
+  display: flex;
+  padding-top: 2em;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  &__text {
+    flex: 5;
+    text-align: center;
+    font-size: 3em;
+  }
+
+  &__actions {
+    flex: 1;
+    text-align: center;
+  }
+}
