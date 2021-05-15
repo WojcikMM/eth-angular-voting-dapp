@@ -14,7 +14,7 @@
           "error",
           {
             "type": "attribute",
-            "prefix": "ethAngularDapp",
+            "prefix": "votingDapp",
             "style": "camelCase"
           }
         ],
@@ -22,7 +22,7 @@
           "error",
           {
             "type": "element",
-            "prefix": "eth-angular-dapp",
+            "prefix": "voting-dapp",
             "style": "kebab-case"
           }
         ]

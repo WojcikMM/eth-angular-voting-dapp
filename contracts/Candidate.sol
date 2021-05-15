@@ -3,27 +3,27 @@ pragma solidity >=0.4.22 <0.9.0;
 
 contract Candidate {
 
-    string name;
-    uint voteCount;
+  string name;
+  uint voteCount;
 
-    constructor(string memory _name) {
-        name = _name;
-    }
+  constructor(string memory _name) {
+    name = _name;
+  }
 
-    // Setters
+  // Setters
 
-    function vote() public  {
-        voteCount++;
-    }
+  function vote() public  {
+    voteCount++;
+  }
 
-    // Getters
+  // Getters
 
-    function getName() public view returns (string memory) {
-        return name;
-    }
+  function getName() public view returns (string memory) {
+    return name;
+  }
 
-    function getVoteCount() public view returns (uint){
-        return voteCount;
-    }
+  function getVoteCount() public view returns (uint){
+    return voteCount;
+  }
 
 }

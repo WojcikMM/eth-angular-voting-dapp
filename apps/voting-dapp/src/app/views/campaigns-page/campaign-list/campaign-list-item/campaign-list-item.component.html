@@ -1,0 +1,25 @@
+<mat-card class="campaign-list-item" *ngIf="campaign">
+  <div
+    class="campaign-list-item__alert"
+    [class.campaign-list-item__alert--active]="campaign.isActive"
+    [class.campaign-list-item__alert--inactive]="!campaign.isActive"
+  >
+    {{ campaign.isActive ? 'Active' : 'Inactive' }}
+  </div>
+
+  <img mat-card-image src="/assets/campaign-logo.png" alt="Campaign Logo" />
+
+  <div class="campaign-list-item__name">
+    {{ campaign.name$ | async }}
+  </div>
+
+  <mat-card-actions align="end">
+    <button
+      mat-flat-button
+      color="primary"
+      [routerLink]="['/campaign', campaign.address]"
+    >
+      Preview
+    </button>
+  </mat-card-actions>
+</mat-card>

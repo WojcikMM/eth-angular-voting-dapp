@@ -1,0 +1,22 @@
+@import 'apps/voting-dapp/src/styles/variables';
+
+.campaign-list-item {
+  &__alert {
+    text-align: center;
+    margin-bottom: 0.5em;
+    border-radius: 0.3em;
+
+    &--active {
+      background-color: $color-active;
+    }
+
+    &--inactive {
+      background-color: $color-inactive;
+    }
+  }
+
+  &__name {
+    text-align: center;
+    font-size: 1.2em;
+  }
+}

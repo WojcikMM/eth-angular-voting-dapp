@@ -1,6 +1,7 @@
 {
   "version": 1,
   "cli": {
+    "analytics": false,
     "defaultCollection": "@nrwl/angular"
   },
   "defaultProject": "voting-dapp",
@@ -51,7 +52,14 @@
               "apps/voting-dapp/src/favicon.ico",
               "apps/voting-dapp/src/assets"
             ],
-            "styles": ["apps/voting-dapp/src/styles.scss"],
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
+              "apps/voting-dapp/src/styles/styles.scss"
+            ],
+            "allowedCommonJsDependencies": [
+              "web3",
+              "hash.js"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -142,6 +150,31 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["apps/voting-dapp-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "ng-web3": {
+      "projectType": "library",
+      "root": "libs/ng-web3",
+      "sourceRoot": "libs/ng-web3/src",
+      "prefix": "eth-angular-dapp",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/ng-web3/src/**/*.ts",
+              "libs/ng-web3/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/ng-web3"],
+          "options": {
+            "jestConfig": "libs/ng-web3/jest.config.js",
+            "passWithNoTests": true
           }
         }
       }

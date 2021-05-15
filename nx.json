@@ -25,6 +25,9 @@
     "voting-dapp-e2e": {
       "tags": [],
       "implicitDependencies": ["voting-dapp"]
+    },
+    "ng-web3": {
+      "tags": []
     }
   }
 }

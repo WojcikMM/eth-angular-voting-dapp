@@ -4,6 +4,12 @@
 
 export const environment = {
   production: false,
+  campaignFactory: {
+    address: '0xD7FeB3f53B8FEF49089C4Fc712a574E4373E4152',
+    options: {
+      gasPrice: '0',
+    },
+  },
 };
 
 /*

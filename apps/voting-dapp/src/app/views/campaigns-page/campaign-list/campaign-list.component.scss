@@ -1,0 +1,18 @@
+.campaign-list {
+  &__container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1em;
+
+    @media screen and (max-width: 1024px) {
+      justify-content: center;
+    }
+
+    &__item {
+      flex-basis: 20em;
+      margin: 10px 10px;
+      padding: 10px;
+    }
+  }
+}
