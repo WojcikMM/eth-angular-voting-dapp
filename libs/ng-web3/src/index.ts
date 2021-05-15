@@ -1,3 +1,7 @@
+/*
+ * Public API of ng-web3
+ */
+
 export * from './lib/base-contract.builder';
 export * from './lib/base-contract.service';
 
