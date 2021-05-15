@@ -56,10 +56,7 @@
               "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
               "apps/voting-dapp/src/styles/styles.scss"
             ],
-            "allowedCommonJsDependencies": [
-              "web3",
-              "hash.js"
-            ],
+            "allowedCommonJsDependencies": ["web3", "hash.js"],
             "scripts": []
           },
           "configurations": {

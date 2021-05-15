@@ -29,12 +29,9 @@ export class Web3AccountService {
       });
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (ethereum as any).on(
-      'accountsChanged',
-      (accounts: string[]) => {
-        this._accountChangedHandler(accounts);
-      }
-    );
+    (ethereum as any).on('accountsChanged', (accounts: string[]) => {
+      this._accountChangedHandler(accounts);
+    });
   }
 
   /**

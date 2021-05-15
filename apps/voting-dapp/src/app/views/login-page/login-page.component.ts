@@ -15,11 +15,9 @@ export class LoginPageComponent {
   ) {
     this._accountService.connectedAccount$
       .pipe(filter((account) => !!account))
-      .subscribe(
-        () => {
-          this._router.navigate(['/']);
-        }
-      );
+      .subscribe(() => {
+        this._router.navigate(['/']);
+      });
   }
 
   onConnectClicked(): void {
