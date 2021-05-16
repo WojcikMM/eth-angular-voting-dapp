@@ -9,7 +9,7 @@ contract('Voting', () => {
         contractInstance = await Voting.new();
     });
 
-    describe('after initialize', () => {
+    xdescribe('after initialize', () => {
 
         it('should be initialized with empty campaigns array', async () => {
             let campaignCounter = await contractInstance.getCampaignCount();
@@ -41,7 +41,7 @@ contract('Voting', () => {
         });
     });
 
-    describe('when method addCampaign is called', () => {
+    xdescribe('when method addCampaign is called', () => {
         it('should increase campaignsCounter to 1', async () => {
             const expectedCampaignName = 'sample';
 
@@ -108,7 +108,7 @@ contract('Voting', () => {
     });
 
 
-    describe('when one campaign-preview is created with no candidates', () => {
+    xdescribe('when one campaign-preview is created with no candidates', () => {
         const GIVEN_CAMPAIGN_INDEX = 0;
         beforeEach(async () => {
             await contractInstance.addCampaign('Example Campaign');

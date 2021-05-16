@@ -40,8 +40,12 @@
       "prefix": "eth-angular-dapp",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-builders/custom-webpack:browser",
           "options": {
+            "customWebpackConfig": {
+              "path": "./tools/webpack.config.js",
+              "replaceDuplicatePlugins": true
+            },
             "outputPath": "dist/apps/voting-dapp",
             "index": "apps/voting-dapp/src/index.html",
             "main": "apps/voting-dapp/src/main.ts",
@@ -90,7 +94,7 @@
           }
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "@angular-builders/custom-webpack:dev-server",
           "options": {
             "browserTarget": "voting-dapp:build"
           },

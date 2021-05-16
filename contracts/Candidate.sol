@@ -6,14 +6,17 @@ contract Candidate {
   string name;
   uint voteCount;
 
+  event CandidateVoted(address candidateAddress);
+
   constructor(string memory _name) {
     name = _name;
   }
 
   // Setters
 
-  function vote() public  {
+  function vote() public {
     voteCount++;
+    emit CandidateVoted(address(this));
   }
 
   // Getters
