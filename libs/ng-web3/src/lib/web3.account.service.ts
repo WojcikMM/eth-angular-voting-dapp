@@ -16,14 +16,10 @@ export class Web3AccountService {
   private _lastConnectedAccount = '';
 
   constructor() {
-    this._accountChanged = new ReplaySubject<string>();
+    this._accountChanged = new ReplaySubject<string>(1);
     this.connectedAccount$ = this._accountChanged.asObservable();
 
-    web3.eth
-      .getAccounts()
-      .then((accounts) => {
-        this._accountChangedHandler(accounts);
-      })
+    web3.eth.getAccounts()
       .catch((err) => {
         console.error('Warning error occurred: ', err);
       });
