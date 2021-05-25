@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BaseContractService } from 'ng-web3';
 import { CampaignContractBuilder } from '../../../web3';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { SendOptions } from 'web3-eth-contract';
 
@@ -32,9 +32,7 @@ export interface CandidateModel {
   providedIn: 'root',
 })
 export class CampaignPreviewService extends BaseContractService {
-  constructor(
-    private readonly _campaignContractBuilder: CampaignContractBuilder
-  ) {
+  constructor(private readonly _campaignContractBuilder: CampaignContractBuilder) {
     super();
   }
 
@@ -55,10 +53,7 @@ export class CampaignPreviewService extends BaseContractService {
   }
 
   private _getCandidateName(candidateAddress: string): Observable<string> {
-    return this.__getData$<string>(
-      'getCandidateNameById(address)',
-      candidateAddress
-    );
+    return this.__getData$<string>('getCandidateNameById(address)', candidateAddress);
   }
 
   private _mapCampaignDtoToModel(campaignDto: GetCampaignDto): CampaignModel {
@@ -75,14 +70,14 @@ export class CampaignPreviewService extends BaseContractService {
     };
   }
 
-  addCandidate$(
-    candidateName: string,
-    sendOptions: SendOptions
-  ): Observable<void> {
-    return this.__sendData$(
-      'createCandidate(string)',
-      sendOptions,
-      candidateName
-    );
+  addCandidate$(candidateName: string, sendOptions: SendOptions): Observable<void> {
+    return this.__sendData$('createCandidate(string)', sendOptions, candidateName);
+  }
+
+  candidateCreated$(): Observable<CandidateModel> {
+    return this.__getEvents$<CandidateModel>('CandidateCreated', eventValues => ({
+      address: eventValues.candidateAddress,
+      name$: of(eventValues.candidateName)
+    } as CandidateModel))
   }
 }

@@ -21,13 +21,13 @@
       {
         "indexed": false,
         "internalType": "address",
-        "name": "",
+        "name": "candidateAddress",
         "type": "address"
       },
       {
         "indexed": false,
         "internalType": "string",
-        "name": "",
+        "name": "candidateName",
         "type": "string"
       }
     ],

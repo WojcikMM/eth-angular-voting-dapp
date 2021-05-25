@@ -5,7 +5,7 @@ const abiFiles = [
   { input: 'CampaignFactory', output: 'campaign-factory.abi' },
 ];
 const inputPath = './build/contracts/';
-const outputPath = '.apps/voting-dapp/src/app/web3/abi-files/';
+const outputPath = './apps/voting-dapp/src/app/web3/abi-files/';
 const contractFileExtension = 'json';
 
 function execute(contract) {
