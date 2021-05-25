@@ -16,7 +16,7 @@ contract Campaign {
   uint voteCount;
   mapping(address => bool) isVoterVotes;
 
-  event CandidateCreated(address, string);
+  event CandidateCreated(address candidateAddress, string candidateName);
   event UserVoted();
   event VotingEnded();
 

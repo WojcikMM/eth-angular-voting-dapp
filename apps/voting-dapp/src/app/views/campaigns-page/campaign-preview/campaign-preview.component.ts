@@ -28,16 +28,20 @@ export class CampaignPreviewComponent {
     _campaignPreviewService.initializeContract(
       _activatedRoute.snapshot.paramMap.get('id') || ''
     );
-    _campaignPreviewService
-      .getCampaign$()
+    _campaignPreviewService.getCampaign$()
       .subscribe((campaignModel: CampaignModel) => {
         this.campaignModel = campaignModel;
+      });
+
+    _campaignPreviewService.candidateCreated$()
+      .subscribe(candidate => {
+        this.campaignModel.candidates.push(candidate);
       });
   }
 
   onAddCandidateClicked(): void {
     this._dialog
-      .open(AddCandidateModalComponent, { width: '250px' })
+      .open(AddCandidateModalComponent, {width: '250px'})
       .afterClosed()
       .pipe(
         filter((candidateName: string) => !!candidateName),
@@ -54,5 +58,10 @@ export class CampaignPreviewComponent {
       .subscribe(() => {
         this._snackBar.open('Candidate successfully added.', 'Ok');
       });
+  }
+
+  onVoteClicked() {
+    // TODO: Implement logic of vote click.
+    // TODO: Remember to disable other buttons when voting in progress.
   }
 }

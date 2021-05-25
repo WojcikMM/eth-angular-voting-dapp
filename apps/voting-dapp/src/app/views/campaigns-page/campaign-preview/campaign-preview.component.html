@@ -1,9 +1,7 @@
 <div *ngIf="campaignModel" class="campaign-preview">
-  <voting-dapp-page-title-bar
-    [title]="campaignModel.name"
-    actionButtonText="Add Candidate"
-    (actionButtonClickedEvent)="onAddCandidateClicked()"
-  >
+  <voting-dapp-page-title-bar [title]="campaignModel.name"
+                              actionButtonText="Add Candidate"
+                              (actionButtonClickedEvent)="onAddCandidateClicked()">
   </voting-dapp-page-title-bar>
 
   <div class="campaign-preview-alert">
@@ -18,16 +16,15 @@
     <mat-divider></mat-divider>
     <ng-container *ngFor="let candidate of campaignModel.candidates">
       <mat-list-item class="campaign-preview__candidates-list__item">
-        <mat-icon class="campaign-preview__candidates-list__item__icon"
-          >face</mat-icon
-        >
+        <mat-icon class="campaign-preview__candidates-list__item__icon">
+          face
+        </mat-icon>
         <div class="campaign-preview__candidates-list__item__candidate-name">
-          Candidate 1
+          {{candidate.name$ | async}}
         </div>
-        <button
-          mat-flat-button
-          class="campaign-preview__candidates-list__item__vote-button"
-        >
+        <button mat-flat-button
+                class="campaign-preview__candidates-list__item__vote-button"
+                (click)="onVoteClicked()">
           Vote
         </button>
       </mat-list-item>
@@ -36,12 +33,8 @@
 
     <ng-container *ngIf="!campaignModel.candidates.length">
       <mat-list-item class="campaign-preview__candidates-list__empty-item">
-        <mat-icon class="campaign-preview__candidates-list__empty-item__icon"
-          >info</mat-icon
-        >
-        <div
-          class="campaign-preview__candidates-list__empty-item__text-container"
-        >
+        <mat-icon class="campaign-preview__candidates-list__empty-item__icon">info</mat-icon>
+        <div class="campaign-preview__candidates-list__empty-item__text-container">
           <div mat-line>Sorry there is no candidates to vote.</div>
           <div mat-line>
             You can <strong>Add Candidate</strong> if you want.
